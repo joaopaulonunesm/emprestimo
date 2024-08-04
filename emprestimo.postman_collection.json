@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "1d9535d6-123e-49a7-bbf1-cc4a49f6cc5e",
+		"name": "Emprestimo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1269727"
+	},
+	"item": [
+		{
+			"name": "Simular",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idConta\": \"123\",\r\n    \"email\": \"joao@mail.com\",\r\n    \"valorSolicitado\": 10000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/emprestimo/v1/simular",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"emprestimo",
+						"v1",
+						"simular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status Simulação",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idConta\": \"123\",\r\n    \"email\": \"joaopaulonunesm@hotmail.com\",\r\n    \"valorSolicitado\": 10000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/emprestimo/v1/08e8b5a7-889f-44b8-afa1-b654dbab5d22/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"emprestimo",
+						"v1",
+						"08e8b5a7-889f-44b8-afa1-b654dbab5d22",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
