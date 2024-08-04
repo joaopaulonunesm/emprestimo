@@ -1,41 +1,42 @@
 package com.sistema.bancario.emprestimo.infrastructure.repository.entity;
 
-import com.sistema.bancario.emprestimo.domain.StatusSimulacao;
-import jakarta.persistence.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "emprestimo_simulacao")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@DynamoDBTable(tableName = "tb_simulacao")
 public class SimulacaoEntity {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @DynamoDBHashKey(attributeName = "id_simulacao")
     private String idSimulacao;
 
+    @DynamoDBAttribute(attributeName = "id_conta")
     private String idConta;
 
+    @DynamoDBAttribute(attributeName = "email")
     private String email;
 
+    @DynamoDBAttribute(attributeName = "valor_solicitado")
     private BigDecimal valorSolicitado;
 
-    private LocalDateTime dataHora;
+    @DynamoDBAttribute(attributeName = "data_hora")
+    private String dataHora;
 
-    @Enumerated(EnumType.STRING)
-    private StatusSimulacao status;
+    @DynamoDBAttribute(attributeName = "status")
+    private String status;
 
+    @DynamoDBAttribute(attributeName = "areas_solicitadas_para_simulacao")
     private List<String> areasSolicitadasParaSimulacao;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "simulacao", cascade = CascadeType.ALL)
+    @DynamoDBAttribute(attributeName = "retornos_simulacao_areas")
     private List<RetornoSimulacaoAreaEntity> retornosSimulacaoAreas;
 }

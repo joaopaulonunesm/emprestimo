@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @ToString
 public class RetornoSimulacaoArea {
 
-    private String id;
     private String idSimulacao;
     private String area;
     private StatusRetornoArea statusRetornoArea;

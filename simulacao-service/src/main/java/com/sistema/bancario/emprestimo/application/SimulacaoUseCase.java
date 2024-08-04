@@ -54,7 +54,8 @@ public class SimulacaoUseCase {
 
     public void processarRetornoArea(RetornoSimulacaoArea retornoSimulacaoArea) {
 
-        Simulacao simulacao = simulacaoGateway.buscarPorId(retornoSimulacaoArea.getIdSimulacao()).orElseThrow(() -> new RuntimeException("Retorno de área para uma simulação que não existe!"));
+        Simulacao simulacao = simulacaoGateway.buscarPorId(retornoSimulacaoArea.getIdSimulacao())
+                .orElseThrow(() -> new RuntimeException("Retorno de área para uma simulação que não existe!"));
 
         if (!simulacao.areaFoiSolicitadaParaAnalise(retornoSimulacaoArea)) {
             log.info("Area retornou uma analise que não foi solicitada.");

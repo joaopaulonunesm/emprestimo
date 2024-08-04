@@ -1,9 +1,21 @@
 package com.sistema.bancario.emprestimo.infrastructure.repository;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.sistema.bancario.emprestimo.infrastructure.repository.entity.SimulacaoEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SimulacaoRepository extends JpaRepository<SimulacaoEntity, String> {
+@RequiredArgsConstructor
+public class SimulacaoRepository {
+
+    private final DynamoDBMapper dynamoDBMapper;
+
+    public void save(SimulacaoEntity entity) {
+        dynamoDBMapper.save(entity);
+    }
+
+    public SimulacaoEntity getById(String idSimulacao) {
+        return dynamoDBMapper.load(SimulacaoEntity.class, idSimulacao);
+    }
 }

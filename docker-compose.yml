@@ -7,6 +7,6 @@ services:
     environment:
       - AWS_DEFAULT_REGION=sa-east-1
       - EDGE_PORT=4566
-      - SERVICES=sqs,sns
+      - SERVICES=sqs,sns,dynamodb
     ports:
       - '4566:4566'

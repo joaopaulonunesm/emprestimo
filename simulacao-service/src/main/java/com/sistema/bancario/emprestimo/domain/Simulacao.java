@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +30,7 @@ public class Simulacao implements Serializable {
     private List<RetornoSimulacaoArea> retornosSimulacaoAreas;
 
     public Simulacao(String idConta, String email, BigDecimal valorSolicitado) {
+        this.id = UUID.randomUUID().toString();
         this.idConta = idConta;
         this.email = email;
         this.valorSolicitado = valorSolicitado;
@@ -46,7 +48,6 @@ public class Simulacao implements Serializable {
 
     public void processarRetornoArea(RetornoSimulacaoArea retornoSimulacaoArea) {
         retornosSimulacaoAreas.stream().filter(retornoArea -> retornoArea.getArea().equalsIgnoreCase(retornoSimulacaoArea.getArea())).findFirst().ifPresent(retornoArea -> new RuntimeException("Retorno de área já processado!"));
-
         retornosSimulacaoAreas = Optional.ofNullable(retornosSimulacaoAreas).orElseGet(ArrayList::new);
         retornosSimulacaoAreas.add(retornoSimulacaoArea);
     }

@@ -1,34 +1,26 @@
 package com.sistema.bancario.emprestimo.infrastructure.repository.entity;
 
-import jakarta.persistence.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "emprestimo_retorno_simulacao_area")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@DynamoDBDocument
 public class RetornoSimulacaoAreaEntity {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String idRetornoSimulacaoArea;
-
-    @ManyToOne
-    @JoinColumn(name = "id_simulacao")
-    private SimulacaoEntity simulacao;
-
+    @DynamoDBAttribute(attributeName = "area")
     private String area;
 
+    @DynamoDBAttribute(attributeName = "status")
     private String status;
 
+    @DynamoDBAttribute(attributeName = "motivo")
     private String motivo;
 
-    private LocalDateTime dataHora;
+    @DynamoDBAttribute(attributeName = "data_hora")
+    private String dataHora;
 }

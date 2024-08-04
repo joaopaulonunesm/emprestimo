@@ -29,6 +29,8 @@ DLQ_SIMULACAO_ARN=$(aws --endpoint-url=http://localhost:4566 sqs get-queue-attri
 aws --endpoint-url=http://localhost:4566 sqs set-queue-attributes --queue-url http://localhost:4566/000000000000/sqs-emprestimo-simulacao --attributes '{"RedrivePolicy":"{\"deadLetterTargetArn\":\"'"$DLQ_SIMULACAO_ARN"'\",\"maxReceiveCount\":\"5\"}"}'
 aws --endpoint-url=http://localhost:4566 sns subscribe --topic-arn arn:aws:sns:sa-east-1:000000000000:sns-emprestimo --protocol sqs --notification-endpoint arn:aws:sqs:sa-east-1:000000000000:sqs-emprestimo-simulacao --attributes "RawMessageDelivery=true"
 
-# Listar sqs e assinaturas no topico
-aws --endpoint-url=http://localhost:4566 sqs list-queues
-aws --endpoint-url=http://localhost:4566 sns list-subscriptions
+aws dynamodb create-table --table-name tb_simulacao \
+    --attribute-definitions AttributeName=id_simulacao,AttributeType=S \
+    --key-schema AttributeName=id_simulacao,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --endpoint-url=http://localhost:4566
