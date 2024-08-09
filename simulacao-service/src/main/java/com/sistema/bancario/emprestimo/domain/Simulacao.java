@@ -3,7 +3,6 @@ package com.sistema.bancario.emprestimo.domain;
 import lombok.*;
 import org.springframework.util.CollectionUtils;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,9 +15,7 @@ import java.util.UUID;
 @Getter
 @Builder
 @ToString
-public class Simulacao implements Serializable {
-
-    private static final long serialVersionUID = -1L;
+public class Simulacao {
 
     private String id;
     private String idConta;
@@ -47,7 +44,11 @@ public class Simulacao implements Serializable {
     }
 
     public void processarRetornoArea(RetornoSimulacaoArea retornoSimulacaoArea) {
-        retornosSimulacaoAreas.stream().filter(retornoArea -> retornoArea.getArea().equalsIgnoreCase(retornoSimulacaoArea.getArea())).findFirst().ifPresent(retornoArea -> new RuntimeException("Retorno de área já processado!"));
+        retornosSimulacaoAreas.stream()
+                .filter(retornoArea -> retornoArea.getArea().equalsIgnoreCase(retornoSimulacaoArea.getArea()))
+                .findFirst()
+                .ifPresent(retornoArea -> new RuntimeException("Retorno de área já processado!"));
+
         retornosSimulacaoAreas = Optional.ofNullable(retornosSimulacaoAreas).orElseGet(ArrayList::new);
         retornosSimulacaoAreas.add(retornoSimulacaoArea);
     }
@@ -64,7 +65,7 @@ public class Simulacao implements Serializable {
         return areasSolicitadasParaSimulacao.size() == retornosSimulacaoAreas.size();
     }
 
-    public boolean areaFoiSolicitadaParaAnalise(RetornoSimulacaoArea retornoSimulacaoArea) {
-        return areasSolicitadasParaSimulacao.contains(retornoSimulacaoArea.getArea());
+    public boolean ehAreaSolicitadaParaSimulacao(RetornoSimulacaoArea retornoSimulacaoAreaSqsMessage) {
+        return areasSolicitadasParaSimulacao.contains(retornoSimulacaoAreaSqsMessage.getArea());
     }
 }
